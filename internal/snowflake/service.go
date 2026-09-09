@@ -18,7 +18,8 @@ func Routes(node *maelstrom.Node) service.Routes {
 		"generate": func(msg maelstrom.Message) error {
 			return node.Reply(msg, map[string]any{
 				"type": "generate_ok",
-				"id":   gen.NextID(),
+				// convert to a string because
+				"id": gen.NextID().String(),
 			})
 		},
 	}

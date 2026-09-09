@@ -60,7 +60,7 @@ func New[T any](config Config) *Mailbox[T] {
 	}
 }
 
-// SetNode sets this Mailbox's node, initialises the Snowflake ID generator,
+// SetNode sets this Mailbox's node, initialises the snowflake ID generator,
 // and sets up a handler for the receiving end.
 func (m *Mailbox[T]) SetNode(node *maelstrom.Node) {
 	m.mu.Lock()

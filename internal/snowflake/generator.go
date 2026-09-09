@@ -29,12 +29,9 @@ func NewGenerator(nodeID string) *Generator {
 	idStr := strings.TrimPrefix(nodeID, "n")
 	nodeIDUint, _ := strconv.ParseUint(idStr, 10, 64)
 
-	epoch := time.Date(2026, time.July, 22, 0, 0, 0, 0, time.UTC)
-	epochMs := epoch.UnixMilli()
-
 	return &Generator{
 		nodeID: nodeIDUint,
-		epoch:  epochMs,
+		epoch:  0,
 	}
 }
 
@@ -47,9 +44,14 @@ func (g *Generator) NextID() ID {
 
 	now := time.Now().UnixMilli()
 
-	if now == g.lastTimestamp {
+	if now < g.lastTimestamp {
+		// time may jump backwards due to things like NTP!
+		// so we must play "catch up"
+		for now <= g.lastTimestamp {
+			now = time.Now().UnixMilli()
+		}
+	} else if now == g.lastTimestamp {
 		g.sequence = (g.sequence + 1) & 0xFFF
-		// wait for next ms
 		if g.sequence == 0 {
 			for now <= g.lastTimestamp {
 				now = time.Now().UnixMilli()
@@ -61,7 +63,7 @@ func (g *Generator) NextID() ID {
 
 	g.lastTimestamp = now
 
-	// bits: |------ 41 ------|-- 10 ---|--- 12 ---|
-	//       | ms since epoch | node id | sequence |
+	// bits:  |------ 41 ------|-- 10 ---|--- 12 ---|
+	// field: | ms since epoch | node id | sequence |
 	return ID(uint64(now-g.epoch)<<22 | (g.nodeID&0x3FF)<<12 | g.sequence)
 }

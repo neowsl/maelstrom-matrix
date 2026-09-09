@@ -18,7 +18,7 @@ const CHALLENGES: Record<ChallengeId, ChallengeDetails> = {
     "unique-ids": {
         displayName: "Unique ID Generation",
         objective:
-            "Mint globally unique IDs using Snowflake bit-packing: 41-bit timestamp | 10-bit node | 12-bit sequence counter. No coordination needed.",
+            "Mint globally unique IDs using snowflake bit-packing: 41-bit timestamp | 10-bit node | 12-bit sequence counter. No coordination needed.",
     },
     broadcast: {
         displayName: "Fault Tolerant Broadcast",
