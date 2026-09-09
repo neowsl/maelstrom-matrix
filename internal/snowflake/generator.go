@@ -64,6 +64,6 @@ func (g *Generator) NextID() ID {
 	g.lastTimestamp = now
 
 	// bits:  |------ 41 ------|-- 10 ---|--- 12 ---|
-	// field: | ms since epoch | node id | sequence |
+	// field: | ms_since_epoch | node_id | sequence |
 	return ID(uint64(now-g.epoch)<<22 | (g.nodeID&0x3FF)<<12 | g.sequence)
 }
