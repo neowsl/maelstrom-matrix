@@ -11,8 +11,16 @@ import { KafkaLogStrategy } from "@/lib/strategies/kafkaLog";
 import { UniqueIdsStrategy } from "@/lib/strategies/uniqueIds";
 import { TxnStoreStrategy } from "@/lib/strategies/txnStore";
 import { statusColor } from "@/lib/utils";
+import type { ChallengeId } from "@/lib/types";
 
-const PLAYBACK_DURATION_MS = 30_000;
+const PLAYBACK_DURATION_MS: Record<ChallengeId, number> = {
+    echo: 6_000,
+    "unique-ids": 10_000,
+    broadcast: 30_000,
+    "g-counter": 30_000,
+    "kafka-log": 25_000,
+    "txn-store": 20_000,
+};
 
 export function MaelstromCanvas() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -121,7 +129,7 @@ export function MaelstromCanvas() {
             events: state.events,
             fromIndex: playbackIndexRef.current,
             fromProgress: state.playbackProgress,
-            playbackDuration: PLAYBACK_DURATION_MS,
+            playbackDuration: PLAYBACK_DURATION_MS[challengeId],
             speed,
             onEvent: (event) => {
                 playbackIndexRef.current++;
@@ -130,7 +138,7 @@ export function MaelstromCanvas() {
             onProgress: setPlaybackProgress,
             onComplete: completePlayback,
         });
-    }, [completePlayback, isPlaying, speed, setPlaybackProgress]);
+    }, [challengeId, completePlayback, isPlaying, speed, setPlaybackProgress]);
 
     return (
         <div className="flex h-full w-full flex-col overflow-hidden">
