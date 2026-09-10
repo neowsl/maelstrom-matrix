@@ -2,7 +2,7 @@ import { statusColor } from "@lib/utils";
 import { GitCompareArrows, GitFork, Send, Wifi, WifiOff } from "lucide-react";
 import type { FC } from "react";
 import { useMaelstromStore } from "@/lib/store";
-import type { ChallengeId } from "@/lib/types";
+import { CHALLENGE_IDS, type ChallengeId } from "@/lib/types";
 
 interface ChallengeDetails {
     displayName: string;
@@ -13,32 +13,39 @@ const CHALLENGES: Record<ChallengeId, ChallengeDetails> = {
     echo: {
         displayName: "Echo",
         objective:
-            "Reflect all messages back to clients. Implement reliable request-response handling and validate the Maelstrom RPC protocol.",
+            "Reflect all messages back to clients. \
+Implement reliable request-response handling and validate the Maelstrom RPC protocol.",
     },
     "unique-ids": {
         displayName: "Unique ID Generation",
         objective:
-            "Mint globally unique IDs using snowflake bit-packing: 41-bit timestamp | 10-bit node | 12-bit sequence counter. No coordination needed.",
+            "Mint globally unique IDs using snowflake bit-packing: \
+41-bit timestamp | 10-bit node | 12-bit sequence counter. \
+No coordination needed.",
     },
     broadcast: {
         displayName: "Fault Tolerant Broadcast",
         objective:
-            "Gossip all received messages to every peer. Survive network partitions using per-neighbor buffered queues with exponential backoff and jitter.",
+            "Gossip all received messages to every peer. \
+Survive network partitions using per-neighbor buffered queues with exponential backoff and jitter.",
     },
     "g-counter": {
         displayName: "Grow-Only Counter",
         objective:
-            "CRDT Grow-Only Counter with sequential consistency (seq-kv). Nodes own exclusive namespaces, aggregate asynchronously — eliminating service contention.",
+            "CRDT Grow-Only Counter with sequential consistency (seq-kv). \
+Nodes own exclusive namespaces, aggregate asynchronously — eliminating service contention.",
     },
     "kafka-log": {
         displayName: "Sharded Kafka-Style Log",
         objective:
-            "Shard log ownership across worker nodes using hash-based routing. Observe scatter-gather requests moving directly between nodes without lin-kv contention.",
+            "Shard log ownership across worker nodes using hash-based routing. \
+Observe scatter-gather requests moving directly between nodes without lin-kv contention.",
     },
     "txn-store": {
         displayName: "MVCC Read-Committed Store",
         objective:
-            "Fully-available distributed transaction store with a Read Committed consistency model. Apply MVCC versioned snapshots with LWW and ensure reads only observe committed state.",
+            "Fully-available distributed transaction store with a Read Committed consistency model. \
+Apply MVCC versioned snapshots with LWW and ensure reads only observe committed state.",
     },
 };
 
@@ -77,17 +84,14 @@ const SidebarLeft: FC = () => {
                 </div>
 
                 <ul className="menu w-full gap-2">
-                    {Object.keys(CHALLENGES).map((id, i) => (
+                    {CHALLENGE_IDS.map((id, i) => (
                         <li key={id}>
                             <button
                                 className={`outline ${challengeId === id ? "menu-active" : ""}`}
                                 type="button"
-                                onClick={() =>
-                                    setChallengeId(id as ChallengeId)
-                                }
+                                onClick={() => setChallengeId(id)}
                             >
-                                {i + 1}.{" "}
-                                {CHALLENGES[id as ChallengeId].displayName}
+                                {i + 1}. {CHALLENGES[id].displayName}
                             </button>
                         </li>
                     ))}

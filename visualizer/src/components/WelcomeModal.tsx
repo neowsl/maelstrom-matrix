@@ -11,11 +11,11 @@ const WelcomeModal: FC = () => {
     return (
         <dialog ref={modalRef} className="modal">
             <div className="modal-box">
-                <h3 className="font-bold text-lg text-primary">
+                <h3 className="font-bold text-primary text-xl">
                     Welcome to Maelstrom Matrix!
                 </h3>
 
-                <p className="pt-4">
+                <p className="mt-4">
                     This app is a visualiser for exploring inter-node gossip in
                     my hand-rolled Golang solutions to the{" "}
                     <a
@@ -28,14 +28,12 @@ const WelcomeModal: FC = () => {
                     </a>{" "}
                     distributed systems challenges.
                 </p>
-                <p className="pt-4">
-                    <span className="text-success">Select a challenge</span>{" "}
-                    from the left sidebar, then press{" "}
-                    <span className="text-success">Play</span> to view the
-                    simulation! The challenges get cooler as you move on :)
+                <p className="mt-4">
+                    Press <span className="font-bold text-success">Play</span>{" "}
+                    on the right sidebar to begin the simulation!
                 </p>
-                <p className="pt-4">
-                    ⭐ Please visit the{" "}
+                <p className="mt-4">
+                    ⭐ Visit the{" "}
                     <a
                         className="link link-secondary"
                         href="/docs"

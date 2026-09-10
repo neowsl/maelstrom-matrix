@@ -1,6 +1,7 @@
 import type { FC } from "react";
+import ChallengeCompleteModal from "./components/ChallengeCompleteModal";
 import { MaelstromCanvas } from "./components/MaelstromCanvas";
-import ResponsiveGuard from "./components/ResponsiveGuard";
+import ResponsiveGuardModal from "./components/ResponsiveGuard";
 import SidebarLeft from "./components/SidebarLeft";
 import SidebarRight from "./components/SidebarRight";
 import WelcomeModal from "./components/WelcomeModal";
@@ -35,8 +36,9 @@ const App: FC = () => {
             </div>
 
             <WelcomeModal />
+            <ChallengeCompleteModal />
 
-            <ResponsiveGuard />
+            <ResponsiveGuardModal />
         </>
     );
 };
