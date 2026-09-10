@@ -86,7 +86,8 @@ const SidebarLeft: FC = () => {
                                     setChallengeId(id as ChallengeId)
                                 }
                             >
-                                {i}. {CHALLENGES[id as ChallengeId].displayName}
+                                {i + 1}.{" "}
+                                {CHALLENGES[id as ChallengeId].displayName}
                             </button>
                         </li>
                     ))}

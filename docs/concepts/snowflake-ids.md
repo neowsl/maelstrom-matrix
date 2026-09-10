@@ -29,6 +29,6 @@ Since the MSBs of a snowflake integer are increasing milliseconds, snowflakes ha
 
 ## Design Considerations
 
-The exact bit-widths of each field may be adjusted to suit Different use cases. For instance, a 10-bit `node_id` allows for up to $2^10 = 1024$ nodes. If we have fewer nodes, but each node is fairly fast, we could allocate more bits for `sequence` to allow for more snowflakes to be generated per node, per millisecond.
+The exact bit-widths of each field may be adjusted to suit different use cases. For instance, a 10-bit `node_id` allows for up to $2^10 = 1024$ nodes. If we have fewer nodes, but each node is fairly fast, we could allocate more bits for `sequence` to allow for more snowflakes to be generated per node, per millisecond.
 
 The standard Unix [Network Time Protocol (NTP)](https://en.wikipedia.org/wiki/Network_Time_Protocol) may also introduce "time skips" during synchronisation. Implementations should take this into consideration.

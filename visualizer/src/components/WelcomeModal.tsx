@@ -5,6 +5,7 @@ const WelcomeModal: FC = () => {
 
     useEffect(() => {
         modalRef.current?.showModal();
+        modalRef.current?.focus();
     }, []);
 
     return (
