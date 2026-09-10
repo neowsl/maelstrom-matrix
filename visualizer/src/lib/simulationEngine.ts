@@ -329,10 +329,10 @@ export class SimulationEngine {
 
         if (!id.startsWith("c")) return null;
 
-        const match = id.match(/\d+/);
-        const index = match ? parseInt(match[0], 10) : 0;
-
-        const total = this.strategy?.workers.length ?? this.nodes.length;
+        const workers = this.strategy?.workers ?? [];
+        const workerId = id.replace(/^c/, "n");
+        const index = Math.max(0, workers.indexOf(workerId));
+        const total = workers.length || this.nodes.length;
 
         const padding = 64;
         const innerWidth = this.canvas.clientWidth - padding * 2;
