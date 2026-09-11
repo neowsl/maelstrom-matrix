@@ -8,6 +8,7 @@ nav:
   - Challenges: challenges.md
   - Engineering Log: engineering-log.md
   - Concepts:
+      - CAP Theorem: concepts/cap-theorem.md
       - Idempotency: concepts/idempotency.md
       - Lamport Clocks: concepts/lamport-clocks.md
       - Snowflake IDs: concepts/snowflake-ids.md
