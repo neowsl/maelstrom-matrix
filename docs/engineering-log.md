@@ -1,6 +1,5 @@
 # Engineering Log
 
-
 ## 1. Echo
 
 Pretty self-explanatory, just followed the tutorial for setting up a Maelstrom node. It was cool seeing the test suite blur across my terminal!
@@ -128,7 +127,7 @@ An extremely interesting challenge, not just from a dist-sys angle, but from an 
 
 This challenge emphasised a [Read Uncommitted](https://jepsen.io/consistency/models/read-uncommitted) model, so I had to guarantee **no dirty writes** - i.e. writes from separate transactions must not get entangled. The main lesson of this challenge was understanding which operations/values to keep. Since this challenge required **total availability**, I figured Read operations must make direct queries into the current local state of each node. Therefore, the challenge lied in how to handle Write operations.
 
-I used a **LWW (Last-Write-Wins)** model for determining which writes to keep. When a transaction is received, it is immediately **replicated** across all nodes. Since this replication uses Mailbox Envelopes, each transaction is also tied to a Snowflake ID (shoutout Challenge 2 again)! These Snowflake IDs increase with time, so we can implement LWW by simply keeping the largest Snowflake ID of the writes!
+I used a **LWW (Last-Write-Wins)** model for determining which writes to keep. When a transaction is received, it is immediately **replicated** across all nodes. Since this replication uses Mailbox Envelopes, each transaction is also tied to a [snowflake](concepts/snowflake-ids.md) (shoutout Challenge 2 again)! These snowflakes increase with time, so we can implement LWW by simply keeping the largest snowflakes of the writes!
 
 > 💡 [Apache Cassandra](https://cassandra.apache.org/_/index.html) is a distributed database that uses LWW!
 
